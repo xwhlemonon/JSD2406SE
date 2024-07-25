@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable {
-    public ServerSocket ss= new ServerSocket(8888);
+    public ServerSocket ss = new ServerSocket(8888);
     public Socket socketIn;
 
     public Server() throws IOException {
