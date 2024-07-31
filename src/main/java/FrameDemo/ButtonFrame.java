@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ButtonFrame extends JFrame {
 
@@ -16,16 +14,25 @@ public class ButtonFrame extends JFrame {
     public ButtonFrame() {
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         //创建按钮
-        JButton Button = new JButton("Color");
+        JButton yellowButton = new JButton("Yellow");
+        JButton blueButton = new JButton("Blue");
+        JButton redButton = new JButton("Red");
         //将按钮加入面板
         buttonPanel = new JPanel();
-        buttonPanel.add(Button);
+        buttonPanel.add(yellowButton);
+        buttonPanel.add(blueButton);
+        buttonPanel.add(redButton);
         //将面板加入窗体
         add(buttonPanel);
         //创建事件监听器
-        ColorAction Action = new ColorAction();
+        ColorAction yellowAction = new ColorAction(Color.YELLOW);
+        ColorAction blueAction = new ColorAction(Color.BLUE);
+        ColorAction redAction = new ColorAction(Color.RED);
         //监听
-        Button.addActionListener(Action);
+        yellowButton.addActionListener(yellowAction);
+        blueButton.addActionListener(blueAction);
+        redButton.addActionListener(redAction);
+
     }
 
     public static void main(String[] args) {
@@ -38,26 +45,15 @@ public class ButtonFrame extends JFrame {
     }
 
     class ColorAction implements ActionListener {
-        private final List<Color> colors = new LinkedList<>();
+        private final Color backgroundColor;
 
-        public ColorAction() {
-            colors.add(Color.RED);
-            colors.add(Color.YELLOW);
-            colors.add(Color.BLUE);
+        public ColorAction(Color backgroundColor) {
+            this.backgroundColor = backgroundColor;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                while (true) {
-                    for (Color color : colors) {
-                        Thread.sleep(300);
-                        buttonPanel.setBackground(color);
-                    }
-                }
-            } catch (InterruptedException ex) {
-                System.exit(-1);
-            }
+            buttonPanel.setBackground(backgroundColor);
         }
     }
 }
